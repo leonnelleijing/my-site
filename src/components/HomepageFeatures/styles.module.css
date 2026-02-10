@@ -1,0 +1,417 @@
+/* Modern Minimalist Design - Similar to robbowen.digital */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero Section */
+.heroSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.02) 0%, transparent 100%);
+}
+
+.heroContent {
+  max-width: 800px;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  color: var(--ifm-font-color-base);
+  letter-spacing: -0.03em;
+}
+
+.highlight {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  color: var(--ifm-font-color-secondary);
+  line-height: 1.3;
+}
+
+.heroDescription {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--ifm-font-color-base);
+  margin: 0 0 2rem 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroCTA {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.primaryCTA {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(45, 55, 72, 0.15);
+}
+
+.primaryCTA:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(45, 55, 72, 0.25);
+}
+
+/* Section Heading */
+.sectionHeading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 2rem 0;
+  color: var(--ifm-font-color-base);
+  letter-spacing: -0.02em;
+}
+
+/* Skills Section */
+.skillsSection {
+  padding: 5rem 0;
+  border-top: 1px solid rgba(45, 55, 72, 0.1);
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.skillBox {
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.04) 0%, transparent 100%);
+  border: 1px solid rgba(45, 55, 72, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.skillBox:hover {
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.08) 0%, rgba(45, 55, 72, 0.02) 100%);
+  border-color: var(--ifm-color-primary-lighter);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.skillTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--ifm-color-primary-dark);
+}
+
+.skillsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skillsList li {
+  padding: 0.6rem 0;
+  color: var(--ifm-font-color-base);
+  font-size: 0.95rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.skillsList li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+
+/* Experience Section */
+.experienceSection {
+  padding: 5rem 0;
+  border-top: 1px solid rgba(45, 55, 72, 0.1);
+}
+
+.experienceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.experienceCard {
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.04) 0%, transparent 100%);
+  border: 1px solid rgba(45, 55, 72, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.experienceCard:hover {
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.08) 0%, rgba(45, 55, 72, 0.02) 100%);
+  border-color: var(--ifm-color-primary-lighter);
+  border-left-color: var(--ifm-color-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.jobTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--ifm-color-primary-dark);
+}
+
+.company {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  margin: 0 0 0.3rem 0;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: var(--ifm-font-color-secondary);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ifm-font-color-base);
+  margin: 0;
+}
+
+/* Technologies Section */
+.technologiesSection {
+  padding: 5rem 0;
+  border-top: 1px solid rgba(45, 55, 72, 0.1);
+  border-bottom: 1px solid rgba(45, 55, 72, 0.1);
+}
+
+.techCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.techItem {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary-lightest) 0%, rgba(45, 55, 72, 0.05) 100%);
+  border: 1px solid var(--ifm-color-primary-lighter);
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary-dark);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.techItem:hover {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  color: white;
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(45, 55, 72, 0.2);
+}
+
+/* Competence Tags Section */
+.competenceSection {
+  padding: 5rem 0;
+  border-top: 1px solid rgba(45, 55, 72, 0.1);
+}
+
+.competenceTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.competenceTag {
+  display: inline-block;
+  padding: 1rem 1.8rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: default;
+  border: 2px solid;
+}
+
+.tag_backend {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--ifm-color-primary-dark);
+}
+
+.tag_backend:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+}
+
+.tag_frontend {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.05) 100%);
+  border-color: rgba(236, 72, 153, 0.3);
+  color: #db2777;
+}
+
+.tag_frontend:hover {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(219, 39, 119, 0.1) 100%);
+  border-color: #db2777;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.15);
+}
+
+.tag_mobile {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(21, 128, 61, 0.05) 100%);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #158024;
+}
+
+.tag_mobile:hover {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(21, 128, 61, 0.1) 100%);
+  border-color: #158024;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+}
+
+.tag_devops {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(126, 34, 206, 0.05) 100%);
+  border-color: rgba(168, 85, 247, 0.3);
+  color: #7e22ce;
+}
+
+.tag_devops:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(126, 34, 206, 0.1) 100%);
+  border-color: #7e22ce;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.15);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.5rem;
+  }
+
+  .sectionHeading {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .heroSection {
+    min-height: auto;
+    padding: 2rem 0 3rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+
+  .heroDescription {
+    font-size: 1rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.5rem;
+  }
+
+  .skillsSection,
+  .experienceSection,
+  .technologiesSection,
+  .competenceSection {
+    padding: 3rem 0;
+  }
+
+  .skillsGrid,
+  .experienceGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .techCloud,
+  .competenceTags {
+    gap: 0.8rem;
+  }
+
+  .techItem {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .competenceTag {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .heroDescription {
+    font-size: 0.9rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.3rem;
+  }
+
+  .skillBox,
+  .experienceCard {
+    padding: 1.5rem;
+  }
+
+  .primaryCTA {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

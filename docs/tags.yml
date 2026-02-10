@@ -1,0 +1,19 @@
+backend:
+  label: Backend
+  permalink: /facebook
+  description: Facebook tag description
+
+frontend:
+  label: Frontend
+  permalink: /hello
+  description: Hello tag description
+
+devOps:
+  label: DevOps
+  permalink: /docusaurus
+  description: Docusaurus tag description
+
+testing:
+  label: Testing
+  permalink: /testing
+  description: Testing tag description
