@@ -1,9 +1,36 @@
 /* Modern Minimalist Design - Similar to robbowen.digital */
 
 .container {
-  max-width: 1100px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.scrollSnapSection {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.scrollSnapSection:not(:first-child) {
+  background-image: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+@keyframes background-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Hero Section */
@@ -13,7 +40,9 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 0;
-  background: linear-gradient(135deg, rgba(45, 55, 72, 0.02) 0%, transparent 100%);
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.02) 0%, transparent 25%, rgba(45, 55, 72, 0.05) 50%, transparent 75%, rgba(45, 55, 72, 0.02) 100%);
+  background-size: 400% 400%;
+  animation: background-pan 15s ease-in-out infinite;
 }
 
 .heroContent {
@@ -75,8 +104,8 @@
 }
 
 .primaryCTA:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(45, 55, 72, 0.25);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 16px 40px rgba(45, 55, 72, 0.3);
 }
 
 /* Section Heading */
@@ -90,14 +119,24 @@
 
 /* Skills Section */
 .skillsSection {
-  padding: 5rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
   border-top: 1px solid rgba(45, 55, 72, 0.1);
 }
 
 .skillsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  display: flex; /* Change to flexbox */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  gap: 1.5rem; /* Adjust gap */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  justify-content: center; /* Center the items */
+  padding-bottom: 1rem; /* Add some padding for scrollbar */
+}
+
+.skillBox {
+  flex: 0 0 calc(25% - 1.5rem); /* Make each box take 25% width minus gap */
+  min-width: 200px; /* Ensure a minimum width */
 }
 
 .skillBox {
@@ -109,10 +148,10 @@
 }
 
 .skillBox:hover {
-  background: linear-gradient(135deg, rgba(45, 55, 72, 0.08) 0%, rgba(45, 55, 72, 0.02) 100%);
-  border-color: var(--ifm-color-primary-lighter);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.1) 0%, rgba(45, 55, 72, 0.03) 100%);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
 .skillTitle {
@@ -146,7 +185,9 @@
 
 /* Experience Section */
 .experienceSection {
-  padding: 5rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
   border-top: 1px solid rgba(45, 55, 72, 0.1);
 }
 
@@ -204,7 +245,9 @@
 
 /* Technologies Section */
 .technologiesSection {
-  padding: 5rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
   border-top: 1px solid rgba(45, 55, 72, 0.1);
   border-bottom: 1px solid rgba(45, 55, 72, 0.1);
 }
@@ -239,7 +282,9 @@
 
 /* Competence Tags Section */
 .competenceSection {
-  padding: 5rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
   border-top: 1px solid rgba(45, 55, 72, 0.1);
 }
 
@@ -316,10 +361,6 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .container {
-    padding: 0 1.5rem;
-  }
-
   .heroTitle {
     font-size: 3rem;
   }
@@ -331,16 +372,25 @@
   .sectionHeading {
     font-size: 2rem;
   }
+
+  .heroSection {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .skillsSection,
+  .experienceSection,
+  .technologiesSection,
+  .competenceSection {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-
   .heroSection {
     min-height: auto;
-    padding: 2rem 0 3rem;
+    padding: 2rem 1rem 3rem;
   }
 
   .heroTitle {
@@ -363,7 +413,7 @@
   .experienceSection,
   .technologiesSection,
   .competenceSection {
-    padding: 3rem 0;
+    padding: 3rem 1rem; /* Adjust vertical padding and apply 1rem horizontal padding */
   }
 
   .skillsGrid,
@@ -414,4 +464,52 @@
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
   }
+}
+
+[data-theme='dark'] .scrollSnapSection:not(:first-child) {
+  background-image: linear-gradient(to right, #1a202c, #2d3748);
+}
+
+[data-theme='dark'] .skillBox {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .experienceCard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .techItem {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .tag_backend {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #90b8f8;
+}
+
+[data-theme='dark'] .tag_frontend {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(219, 39, 119, 0.1) 100%);
+  border-color: rgba(236, 72, 153, 0.5);
+  color: #f4a5c9;
+}
+
+[data-theme='dark'] .tag_mobile {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(21, 128, 61, 0.1) 100%);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #89eeb2;
+}
+
+[data-theme='dark'] .tag_devops {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(126, 34, 206, 0.1) 100%);
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #d1a9f9;
+}
+
+[data-theme='dark'] .primaryCTA {
+    color: #1a202c;
 }

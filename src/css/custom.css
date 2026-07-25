@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -27,4 +29,23 @@
   --ifm-color-primary-lighter: #e2e8f0;
   --ifm-color-primary-lightest: #f7fafc;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-font-color-base: #f7fafc;
+  --ifm-font-color-secondary: #e2e8f0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7fafc;
+  background-image: radial-gradient(circle, #cbd5e0 1px, transparent 1px);
+  background-size: 1rem 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+[data-theme='dark'] body {
+  background-color: #1a202c;
+  background-image: radial-gradient(circle, #2d3748 1px, transparent 1px);
+  background-size: 1rem 1rem;
 }

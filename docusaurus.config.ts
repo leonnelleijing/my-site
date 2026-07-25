@@ -66,7 +66,7 @@ const config: Config = {
           label: 'Leaning',
         },
         {
-          href: 'https://github.com/uma-dev',
+          href: 'https://github.com/leonnelleijing',
           label: 'GitHub',
           position: 'right',
         },
