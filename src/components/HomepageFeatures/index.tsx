@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import React, { type ReactNode, useEffect, useRef } from 'react';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
@@ -159,24 +159,69 @@ function ContactSection() {
 }
 
 export default function HomepageFeatures(): ReactNode {
+  const sectionsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = sectionsRef.current;
+    sections.forEach((section) => {
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.scrollSnapSection}>
         <HeroSection />
       </div>
-      <div className={styles.scrollSnapSection}>
+      <div
+        className={`${styles.scrollSnapSection} fade-in-up`}
+        ref={(el) => (sectionsRef.current[0] = el)}
+      >
         <SkillsGrid />
       </div>
-      <div className={styles.scrollSnapSection}>
+      <div
+        className={`${styles.scrollSnapSection} fade-in-up`}
+        ref={(el) => (sectionsRef.current[1] = el)}
+      >
         <ExperienceSection />
       </div>
-      <div className={styles.scrollSnapSection}>
+      <div
+        className={`${styles.scrollSnapSection} fade-in-up`}
+        ref={(el) => (sectionsRef.current[2] = el)}
+      >
         <TechnologiesSection />
       </div>
-      <div className={styles.scrollSnapSection}>
+      <div
+        className={`${styles.scrollSnapSection} fade-in-up`}
+        ref={(el) => (sectionsRef.current[3] = el)}
+      >
         <CompetenceSection />
       </div>
-      <div className={styles.scrollSnapSection}>
+      <div
+        className={`${styles.scrollSnapSection} fade-in-up`}
+        ref={(el) => (sectionsRef.current[4] = el)}
+      >
         <ContactSection />
       </div>
     </div>

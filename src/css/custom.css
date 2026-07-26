@@ -1,62 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2d3748;
-  --ifm-color-primary-dark: #1a202c;
-  --ifm-color-primary-darker: #0f1419;
-  --ifm-color-primary-darkest: #050608;
-  --ifm-color-primary-light: #4a5568;
-  --ifm-color-primary-lighter: #718096;
-  --ifm-color-primary-lightest: #cbd5e0;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --ifm-color-primary: #10113e;
+  --ifm-background-color: #F3EFE2;
+  --ifm-navbar-background-color: var(--ink-navy);
+  --ifm-navbar-link-color: #ffffff; /* Use white for readability on blue background */
+  --ifm-navbar-link-hover-color: #ffffff;
+  --ifm-navbar-link-active-color: #ffffff;
+  --ifm-navbar-shadow: none;
+
+
+  --canvas-offwhite: #F3EFE2;
+  --ink-navy: #252753;
+  --primary-navy: #10113e;
+  --surface-bg: #fdf9ec;
+  --surface-container: #f2eee1;
+  --surface-container-low: #f8f3e6;
+  --coral-red: #FB452A;
+  --secondary-orange: #9f4200;
+  --minty-blue: #A8CDD2;
+  --on-primary-container: #8d8fc1;
+  --on-surface-variant: #46464f;
+  --outline-gray: #777680;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #a0aec0;
-  --ifm-color-primary-dark: #718096;
-  --ifm-color-primary-darker: #4a5568;
-  --ifm-color-primary-darkest: #2d3748;
-  --ifm-color-primary-light: #cbd5e0;
-  --ifm-color-primary-lighter: #e2e8f0;
-  --ifm-color-primary-lightest: #f7fafc;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-font-color-base: #f7fafc;
-  --ifm-font-color-secondary: #e2e8f0;
+/* Material symbols styling */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hard Shadows */
+.hard-shadow {
+  box-shadow: 4px 4px 0px 0px #10113e;
+}
+
+.hard-shadow-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hard-shadow-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #10113e;
+}
+.hard-shadow-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #10113e;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f7fafc;
-  background-image: radial-gradient(circle, #cbd5e0 1px, transparent 1px);
-  background-size: 1rem 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: #F3EFE2;
+  color: #1c1c14;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-[data-theme='dark'] body {
-  background-color: #1a202c;
-  background-image: radial-gradient(circle, #2d3748 1px, transparent 1px);
-  background-size: 1rem 1rem;
+/* Navigation scroll transitions */
+.nav-scrolled {
+  background-color: #252753;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(16, 17, 62, 0.15) !important;
+}
+.nav-scrolled .nav-text {
+  color: #ffffff;
+}
+.nav-scrolled .nav-logo {
+  color: #ffffff;
+}
+.nav-scrolled .nav-link-inactive {
+  color: #d1d2e6;
+}
+.nav-scrolled .nav-link-inactive:hover {
+  color: #ffffff;
 }
 
-[data-theme='dark'] body {
-  background-color: #1a202c;
-  background-image: radial-gradient(circle, #2d3748 1px, transparent 1px);
-  background-size: 1rem 1rem;
+/* Hide default Docusaurus header & footer on home page */
+.homepage-layout .navbar {
+  display: none !important;
+}
+.homepage-layout footer.footer {
+  display: none !important;
 }
 
-.theme-doc-page .menu__list-item-collapsible > .menu__link {
-  text-transform: none !important;
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 

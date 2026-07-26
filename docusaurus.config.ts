@@ -11,20 +11,20 @@ const config: Config = {
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    experimental_faster: false,
   },
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/my-site/',
+  baseUrl: '/',
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'leonnelleijing', // Usually your GitHub org/user name.
+  projectName: 'my-site', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -52,32 +52,45 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    function myPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          postcssOptions.plugins.push(require("tailwindcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+
   themeConfig: {
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
       title: 'LEI Jing',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          to: '/',
+          label: 'Home',
           position: 'left',
-          label: 'Leaning',
         },
         {
-          href: 'https://github.com/leonnelleijing',
-          label: 'GitHub',
-          position: 'right',
+          to: '/#what-i-do',
+          label: 'What I Do',
+          position: 'left',
         },
         {
-          href: 'https://www.linkedin.com/in/jing-lei-15519a164/',
-          label: 'LinkedIn',
-          position: 'right',
+          to: '/#experience',
+          label: 'Experience',
+          position: 'left',
+        },
+        {
+          to: '/#tech',
+          label: 'Tech Stack',
+          position: 'left',
         },
       ],
     },
