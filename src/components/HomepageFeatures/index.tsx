@@ -68,16 +68,16 @@ function SkillsGrid() {
 function ExperienceSection() {
   const experiences = [
     {
-      title: 'Senior Software Engineer',
-      company: 'Tech Solutions Inc.',
-      date: 'Jan 2020 - Present',
-      description: 'Led the development of a high-traffic e-commerce platform using Spring Boot and Angular. Implemented a microservices architecture and CI/CD pipelines.'
+      title: 'Project Engineer',
+      company: 'Actemium Paris Transport, Paris, France',
+      date: 'Apr 2025 - Present',
+      description: 'Development of video streaming applications with Spring Boot, Vue, and Golang. Management of pipelines with Gitlab CI. Deployment of Helm charts on Kubernetes. Infrastructure management with Terraform and Ansible.'
     },
     {
-      title: 'Software Engineer',
-      company: 'Innovatech',
-      date: 'Jun 2017 - Dec 2019',
-      description: 'Developed and maintained a suite of internal tools using Node.js and React. Worked in an Agile environment to deliver new features and bug fixes.'
+      title: 'Fullstack Developer',
+      company: 'Talan, Toulouse, France',
+      date: 'Oct 2021 - Apr 2025',
+      description: 'Air France - Development of security applications with Spring Boot/Angular. Hybrid mobile support with Ionic. Migration of Ionic projects. Creation of internal Frontend toolkits. CI/CD management with Bamboo, GitHub, Kubernetes, and Azure. Pierre Fabre - Integration of Pricefx software. Data modeling and integration (Data Mart). Development of Java/Groovy functions (dashboards, pricelists), client support.'
     }
   ];
 
@@ -142,6 +142,22 @@ function CompetenceSection() {
   );
 }
 
+function ContactSection() {
+  return (
+    <section id="contact" className={styles.contactSection}>
+      <Heading as="h2" className={styles.sectionHeading}>
+        Contact Me
+      </Heading>
+      <p>
+        Feel free to reach out for collaborations or just a friendly chat.
+      </p>
+      <a href="/pdf/CV_Developer.pdf" className={styles.primaryCTA} target="_blank" rel="noopener noreferrer">
+        View My CV
+      </a>
+    </section>
+  );
+}
+
 export default function HomepageFeatures(): ReactNode {
   return (
     <div className={styles.container}>
@@ -159,6 +175,9 @@ export default function HomepageFeatures(): ReactNode {
       </div>
       <div className={styles.scrollSnapSection}>
         <CompetenceSection />
+      </div>
+      <div className={styles.scrollSnapSection}>
+        <ContactSection />
       </div>
     </div>
   );

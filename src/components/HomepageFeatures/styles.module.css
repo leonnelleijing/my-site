@@ -513,3 +513,11 @@
 [data-theme='dark'] .primaryCTA {
     color: #1a202c;
 }
+
+/* Contact Section */
+.contactSection {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  text-align: center;
+}

@@ -28,6 +28,9 @@ The Kubernetes API server is the central point of control for the entire cluster
 | `--tls-private-key-file`                   | Set                                             | The TLS private key file for the API server.                                                                                                   |
 | `--token-auth-file`                        | Not set                                         | Disables token authentication.                                                                                                                 |
 
+### Authorization Mode - AlwaysAllow Warning
+It is crucial to avoid setting `--authorization-mode` to `AlwaysAllow` on the API server. In this mode, if an attacker can discover a node's IP address and the Kubelet's insecure port (e.g., `10250`), they could potentially execute commands within pods on that node. For example, knowing the node IP `172.30.30.21`, a simple `curl -k https://172.30.30.21:10250/runningpods/` could expose information or allow further unauthorized access. Always use `Node,RBAC` or similar restrictive modes.
+
 ## Taints and tolerations
 
 Add a taint to a node to restrict scheduling:

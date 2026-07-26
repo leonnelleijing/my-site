@@ -49,3 +49,14 @@ h1, h2, h3, h4, h5, h6 {
   background-image: radial-gradient(circle, #2d3748 1px, transparent 1px);
   background-size: 1rem 1rem;
 }
+
+[data-theme='dark'] body {
+  background-color: #1a202c;
+  background-image: radial-gradient(circle, #2d3748 1px, transparent 1px);
+  background-size: 1rem 1rem;
+}
+
+.theme-doc-page .menu__list-item-collapsible > .menu__link {
+  text-transform: none !important;
+}
+

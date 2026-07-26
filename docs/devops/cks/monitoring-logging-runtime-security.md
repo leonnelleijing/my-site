@@ -48,7 +48,7 @@ Falco works by using a kernel module or an eBPF probe to capture system calls. T
 #### Validate Falco config (dry-run):
 
 ```bash
-sudo falco -C /etc/falco/falco.yaml --dry-run
+sudo falco -c /etc/falco/falco.yaml --dry-run
 ```
 
 #### Falco Outputs

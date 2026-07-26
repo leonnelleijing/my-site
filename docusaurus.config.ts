@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'LEI Jing',
   tagline: 'Développeur Fullstack',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -58,6 +58,10 @@ const config: Config = {
     },
     navbar: {
       title: 'LEI Jing',
+      logo: {
+        alt: 'My Site Logo',
+        src: 'img/logo.svg',
+      },
       items: [
         {
           type: 'docSidebar',
