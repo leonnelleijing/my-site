@@ -78,10 +78,11 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/docs/',
-          label: 'Learning',
-          position: 'left'
-        }
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Leaning',
+        },
       ],
     },
     prism: {
