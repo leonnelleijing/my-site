@@ -34,107 +34,6 @@ export default function Home(): React.ReactNode {
       
       <div className="homepage-layout bg-[#F3EFE2] text-[#1c1c14] selection:bg-[#A8CDD2] min-h-screen">
         
-        {/* Navigation Bar */}
-        <header
-          className={`fixed top-0 w-full z-50 transition-all duration-300 h-20 border-b ${
-            isScrolled
-              ? 'bg-[#fdf9ec] border-[#10113e]/15 shadow-md'
-              : 'bg-[#252753] border-white/10'
-          }`}
-        >
-          <div className="max-w-[1200px] mx-auto px-5 md:px-12 h-full flex items-center justify-between">
-            <a
-              href="#"
-              className={`text-2xl font-black tracking-tighter transition-colors duration-300 hover:no-underline ${
-                isScrolled ? 'text-[#10113e]' : 'text-[#fdf9ec]'
-              }`}
-            >
-              LEI JING
-            </a>
-
-            {/* Desktop Nav Links */}
-            <nav className="hidden md:flex items-center gap-8 lg:gap-10">
-              <a
-                href="#"
-                className={`text-base font-bold pb-1 border-b-2 transition-colors hover:no-underline ${
-                  isScrolled
-                    ? 'text-[#9f4200] border-[#9f4200]'
-                    : 'text-[#fe7110] border-[#fe7110]'
-                }`}
-              >
-                Home
-              </a>
-              <button
-                onClick={() => scrollToSection('what-i-do')}
-                className={`text-base font-medium transition-colors hover:cursor-pointer bg-transparent border-0 p-0 ${
-                  isScrolled
-                    ? 'text-[#46464f] hover:text-[#10113e]'
-                    : 'text-[#8d8fc1] hover:text-[#fdf9ec]'
-                }`}
-              >
-                What I Do
-              </button>
-              <button
-                onClick={() => scrollToSection('experience')}
-                className={`text-base font-medium transition-colors hover:cursor-pointer bg-transparent border-0 p-0 ${
-                  isScrolled
-                    ? 'text-[#46464f] hover:text-[#10113e]'
-                    : 'text-[#8d8fc1] hover:text-[#fdf9ec]'
-                }`}
-              >
-                Experience
-              </button>
-              <button
-                onClick={() => scrollToSection('tech')}
-                className={`text-base font-medium transition-colors hover:cursor-pointer bg-transparent border-0 p-0 ${
-                  isScrolled
-                    ? 'text-[#46464f] hover:text-[#10113e]'
-                    : 'text-[#8d8fc1] hover:text-[#fdf9ec]'
-                }`}
-              >
-                Tech Stack
-              </button>
-              <Link
-                to="/docs/devops/linux"
-                className={`text-base font-medium transition-colors hover:no-underline ${
-                  isScrolled
-                    ? 'text-[#46464f] hover:text-[#10113e]'
-                    : 'text-[#8d8fc1] hover:text-[#fdf9ec]'
-                }`}
-              >
-                Learning Notes
-              </Link>
-            </nav>
-
-            {/* Get In Touch CTA */}
-            <div className="hidden md:block">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className={`font-semibold text-sm px-6 py-2.5 rounded-lg hard-shadow hard-shadow-hover transition-all hover:cursor-pointer ${
-                  isScrolled
-                    ? 'bg-[#10113e] text-white border border-[#10113e]'
-                    : 'bg-[#10113e] text-white border border-white/20'
-                }`}
-              >
-                Get In Touch
-              </button>
-            </div>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden p-2 bg-transparent border-0 focus:outline-none hover:cursor-pointer ${
-                isScrolled ? 'text-[#10113e]' : 'text-[#fdf9ec]'
-              }`}
-              aria-label="Toggle menu"
-            >
-              <span className="material-symbols-outlined text-3xl">
-                {mobileMenuOpen ? 'close' : 'menu'}
-              </span>
-            </button>
-          </div>
-        </header>
-
         {/* Mobile Nav Drawer */}
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-[60] bg-[#F3EFE2] flex flex-col items-center justify-center p-8 space-y-8 animate-fadeIn md:hidden">
@@ -224,7 +123,7 @@ export default function Home(): React.ReactNode {
               <div className="order-1 lg:order-2 flex justify-center items-center">
                 <div className="w-full max-w-md lg:max-w-lg aspect-square rounded-3xl overflow-hidden flex items-center justify-center">
                   <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqjDGO7mla0O9sb3lUQzUZtNpQ3fQaZOV9C6hv5PYXda6uOVGNEO2EpvYudjs4ss1hlVmZ9LSBPXFerEOPI-s-NG0xuxI1dTIBOlfASa84gw4cts0yqu7TsNco69ItcgVOWQ3IqIVpA_z5rAoipGwzC4i97qJwhIIn_ayUwyC7TJo8TAXPE_DmjVKTZocj8PCTX3tflEwTtYdKYnv7ADNXfLsunS8f998OjuL8BbS9uubeMnx5yLAPmP3javBR_D1kzpMkb2id3tWZ"
+                    src="img/person.png"
                     alt="LEI Jing illustration working at desk"
                     className="w-full h-full object-contain"
                   />

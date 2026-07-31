@@ -39,14 +39,19 @@ module.exports = {
         'gutter': '24px',
       },
       fontFamily: {
-        'display-lg': ['Plus Jakarta Sans', 'sans-serif'],
-        'headline-md': ['Plus Jakarta Sans', 'sans-serif'],
-        'headline-lg': ['Plus Jakarta Sans', 'sans-serif'],
-        'body-md': ['Inter', 'sans-serif'],
-        'body-lg': ['Inter', 'sans-serif'],
-        'label-md': ['Inter', 'sans-serif'],
-        'label-sm': ['Inter', 'sans-serif'],
+        "headline-lg-mobile": ["Bricolage Grotesque"],
+        "headline-xl": ["Bricolage Grotesque"],
+        "headline-lg": ["Bricolage Grotesque"],
+        "label-sm": ["JetBrains Mono"],
+        "body-md": ["Hanken Grotesk"]
       },
+      fontSize: {
+        "headline-lg-mobile": ["28px", { lineHeight: "34px", fontWeight: "700" }],
+        "headline-xl": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700" }],
+        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+      }
     },
   },
   plugins: [],

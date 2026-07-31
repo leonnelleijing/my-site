@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 
-@tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
 
@@ -81,33 +81,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Navigation scroll transitions */
-.nav-scrolled {
-  background-color: #252753;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(16, 17, 62, 0.15) !important;
-}
-.nav-scrolled .nav-text {
-  color: #ffffff;
-}
-.nav-scrolled .nav-logo {
-  color: #ffffff;
-}
-.nav-scrolled .nav-link-inactive {
-  color: #d1d2e6;
-}
-.nav-scrolled .nav-link-inactive:hover {
-  color: #ffffff;
-}
-
-/* Hide default Docusaurus header & footer on home page */
-.homepage-layout .navbar {
-  display: none !important;
-}
-.homepage-layout footer.footer {
-  display: none !important;
-}
-
 .fade-in-up {
   opacity: 0;
   transform: translateY(20px);
@@ -117,6 +90,27 @@ h1, h2, h3, h4, h5, h6 {
 .fade-in-up.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #cfbcff;
+  --ifm-background-color: #141218;
+  --ifm-navbar-background-color: #141218;
+  --ifm-font-color-base: #e6e0e9;
+  --ifm-navbar-link-color: #e6e0e9;
+
+  --canvas-offwhite: #0f0d13;
+  --ink-navy: #141218;
+  --primary-navy: #cfbcff;
+  --surface-bg: #141218;
+  --surface-container: #211f24;
+  --surface-container-low: #1d1b20;
+  --coral-red: #fb7185;
+  --secondary-orange: #e7c365;
+  --minty-blue: #cdc0e9;
+  --on-primary-container: #e0d2ff;
+  --on-surface-variant: #cbc4d2;
+  --outline-gray: #948e9c;
 }
 
 
