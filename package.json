@@ -21,16 +21,17 @@
     "@mdx-js/react": "^3.0.0",
     "autoprefixer": "^10.5.4",
     "clsx": "^2.0.0",
-    "postcss": "^8.5.23",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "@tailwindcss/postcss": "^4.3.3",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^4.3.3",
     "typescript": "~5.6.2"
   },
   "overrides": {

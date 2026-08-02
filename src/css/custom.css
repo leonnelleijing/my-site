@@ -1,34 +1,104 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme) important;
+@import 'tailwindcss/utilities.css' layer(utilities) important;
 
-/* @tailwind base; */
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:is([data-theme="dark"] *));
 
+/* ============================================
+   LIGHT THEME (default)
+   ============================================ */
 :root {
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-base: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-heading: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
   --ifm-color-primary: #10113e;
+
+  /* --- Font family tokens --- */
+  --font-heading: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+  --font-label: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
   --ifm-background-color: #F3EFE2;
-  --ifm-navbar-background-color: var(--ink-navy);
-  --ifm-navbar-link-color: #ffffff; /* Use white for readability on blue background */
+  --ifm-navbar-background-color: #252753;
+  --ifm-navbar-link-color: #ffffff;
   --ifm-navbar-link-hover-color: #ffffff;
   --ifm-navbar-link-active-color: #ffffff;
   --ifm-navbar-shadow: none;
 
+  /* --- Page semantic tokens (used by src/pages/index.tsx) --- */
+  --color-bg: #F3EFE2;           /* page / section background */
+  --color-bg-alt: #f8f3e6;        /* experience section background */
+  --color-surface: #f2eee1;       /* card background */
+  --color-hero-bg: #252753;       /* hero + contact CTA background */
 
-  --canvas-offwhite: #F3EFE2;
-  --ink-navy: #252753;
-  --primary-navy: #10113e;
-  --surface-bg: #fdf9ec;
-  --surface-container: #f2eee1;
-  --surface-container-low: #f8f3e6;
-  --coral-red: #FB452A;
-  --secondary-orange: #9f4200;
-  --minty-blue: #A8CDD2;
-  --on-primary-container: #8d8fc1;
-  --on-surface-variant: #46464f;
-  --outline-gray: #777680;
+  --color-accent: #FB452A;        /* coral red - primary CTA */
+  --color-accent-hover: #e0391f;
+  --color-secondary: #9f4200;     /* burnt orange accent */
+  --color-secondary-hover: #853700;
+  --color-tertiary: #A8CDD2;      /* minty blue accent */
+  --color-highlight: #fe7110;     /* glow blob */
+
+  --color-ink: #10113e;           /* headings / borders / on-light text accent */
+  --color-ink-solid: #10113e;     /* solid dark badge/button fills (paired with white text) */
+  --color-icon-bg: #10113e;       /* floating icon button background */
+  --color-icon-fg: #ffffff;       /* floating icon button glyph color */
+
+  --color-text: #1c1c14;          /* default body text */
+  --color-text-heading: #10113e;
+  --color-text-muted: #46464f;
+  --color-text-subtle: #777680;
+
+  --color-hero-text: #fdf9ec;     /* headings on dark hero/contact bg */
+  --color-hero-subtext: #A8CDD2;
+  --color-hero-muted: #8d8fc1;
+
+  --color-border: #10113e;
+  --color-shadow: #10113e;
+  --color-white: #ffffff;
+  --color-offwhite: #fdf9ec;
+}
+
+/* ============================================
+   DARK THEME
+   Edit these values (or add more themes below
+   following the same pattern) to restyle the
+   page without touching index.tsx
+   ============================================ */
+html[data-theme='dark'] {
+  --ifm-color-primary: #cfbcff;
+  --ifm-background-color: #141218;
+  --ifm-navbar-background-color: #141218;
+  --ifm-font-color-base: #e6e0e9;
+  --ifm-navbar-link-color: #ffffff;
+
+  --color-bg: #141218;
+  --color-bg-alt: #1a181f;
+  --color-surface: #211f24;
+  --color-hero-bg: #1a1a3a;
+
+  --color-accent: #fb7185;
+  --color-accent-hover: #f4536a;
+  --color-secondary: #e7c365;
+  --color-secondary-hover: #d4ac48;
+  --color-tertiary: #cdc0e9;
+  --color-highlight: #fb923c;
+
+  --color-ink: #cfbcff;
+  --color-ink-solid: #322a58;      /* deep indigo, still readable with white text */
+  --color-icon-bg: #ffffff;        /* floating icon button background */
+  --color-icon-fg: #10113e;        /* floating icon button glyph color */
+
+  --color-text: #e6e0e9;
+  --color-text-heading: #f3eefc;
+  --color-text-muted: #cbc4d2;
+  --color-text-subtle: #948e9c;
+
+  --color-hero-text: #f3eefc;
+  --color-hero-subtext: #cdc0e9;
+  --color-hero-muted: #a79fc7;
+
+  --color-border: #494551;
+  --color-shadow: #000000;
+  --color-white: #ffffff;
+  --color-offwhite: #1d1b20;
 }
 
 /* Material symbols styling */
@@ -47,9 +117,9 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Hard Shadows */
+/* Hard Shadows — theme-aware via var() */
 .hard-shadow {
-  box-shadow: 4px 4px 0px 0px #10113e;
+  box-shadow: 4px 4px 0px 0px var(--color-shadow);
 }
 
 .hard-shadow-hover {
@@ -57,60 +127,206 @@
 }
 .hard-shadow-hover:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px #10113e;
+  box-shadow: 6px 6px 0px 0px var(--color-shadow);
 }
 .hard-shadow-hover:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px 0px #10113e;
+  box-shadow: 2px 2px 0px 0px var(--color-shadow);
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  /* proximity (not mandatory) keeps full-screen sections snug on scroll
+     without fighting the user when they want to stop mid-section or
+     reach the footer */
+  scroll-snap-type: y proximity;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #F3EFE2;
-  color: #1c1c14;
-  margin: 0;
-  padding: 0;
+  font-family: var(--font-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-heading);
 }
 
+/* Small uppercase/tag-style text: nav links, dates, badges, eyebrow copy */
+.font-label {
+  font-family: var(--font-label);
+  letter-spacing: 0.05em;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ============================================
+   Hero entrance animation (plays on page load)
+   ============================================ */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-fade {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s ease-out forwards;
+}
+.hero-fade-1 { animation-delay: 0.05s; }
+.hero-fade-2 { animation-delay: 0.15s; }
+.hero-fade-3 { animation-delay: 0.25s; }
+.hero-fade-4 { animation-delay: 0.35s; }
+.hero-fade-5 { animation-delay: 0.2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   Scroll-reveal animations (sections/cards fade
+   into view as the user scrolls, triggered from
+   index.tsx via IntersectionObserver)
+   ============================================ */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transform: translateY(36px) scale(0.96);
+  filter: blur(6px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .fade-in-up.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
-[data-theme='dark'] {
-  --ifm-color-primary: #cfbcff;
-  --ifm-background-color: #141218;
-  --ifm-navbar-background-color: #141218;
-  --ifm-font-color-base: #e6e0e9;
-  --ifm-navbar-link-color: #ffffff;
-
-  --canvas-offwhite: #0f0d13;
-  --ink-navy: #141218;
-  --primary-navy: #cfbcff;
-  --surface-bg: #141218;
-  --surface-container: #211f24;
-  --surface-container-low: #1d1b20;
-  --coral-red: #fb7185;
-  --secondary-orange: #e7c365;
-  --minty-blue: #cdc0e9;
-  --on-primary-container: #e0d2ff;
-  --on-surface-variant: #cbc4d2;
-  --outline-gray: #948e9c;
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  filter: blur(6px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
 }
 
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(48px);
+  filter: blur(6px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
 
+.fade-delay-1 { transition-delay: 0.05s; }
+.fade-delay-2 { transition-delay: 0.15s; }
+.fade-delay-3 { transition-delay: 0.25s; }
+.fade-delay-4 { transition-delay: 0.35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up, .fade-in-left, .fade-in-right {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* ============================================
+   Animated gradient accent bars (section eyebrows)
+   ============================================ */
+@keyframes shimmerBar {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.gradient-bar {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-secondary),
+    var(--color-tertiary),
+    var(--color-accent)
+  );
+  background-size: 200% 100%;
+  animation: shimmerBar 3s linear infinite;
+}
+
+/* ============================================
+   Tilt-on-hover cards (What I Do)
+   ============================================ */
+.tilt-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-card:hover {
+  transform: perspective(800px) rotateX(4deg) rotateY(-4deg) translateY(-6px) scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Bouncing "scroll down" cue
+   ============================================ */
+@keyframes bounceCue {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+.scroll-cue {
+  animation: bounceCue 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
+
+/* ============================================
+   Slow drifting glow blobs (contact CTA section)
+   ============================================ */
+@keyframes driftBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(12px, -16px) scale(1.08); }
+}
+.glow-blob {
+  animation: driftBlob 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-blob {
+    animation: none;
+  }
+}

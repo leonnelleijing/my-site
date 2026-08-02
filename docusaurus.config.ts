@@ -34,6 +34,31 @@ const config: Config = {
     locales: ['en'],
   },
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap',
+      },
+    },
+],
+
   presets: [
     [
       'classic',
@@ -55,10 +80,9 @@ const config: Config = {
   plugins: [
     function myPlugin(context, options) {
       return {
-        name: "docusaurus-tailwindcss",
+        name: "tailwind-plugin",
         configurePostCss(postcssOptions) {
-          postcssOptions.plugins.push(require("tailwindcss"));
-          postcssOptions.plugins.push(require("autoprefixer"));
+          postcssOptions.plugins = [require("@tailwindcss/postcss")];
           return postcssOptions;
         },
       };
