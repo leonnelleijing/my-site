@@ -1,4 +1,5 @@
 import React, { type ReactNode, useEffect, useRef } from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
@@ -143,6 +144,7 @@ function CompetenceSection() {
 }
 
 function ContactSection() {
+  const pdfUrl = useBaseUrl('/pdf/CV_Developer.pdf');
   return (
     <section id="contact" className={styles.contactSection}>
       <Heading as="h2" className={styles.sectionHeading}>
@@ -151,7 +153,7 @@ function ContactSection() {
       <p>
         Feel free to reach out for collaborations or just a friendly chat.
       </p>
-      <a href="/pdf/CV_Developer.pdf" className={styles.primaryCTA} target="_blank" rel="noopener noreferrer">
+      <a href={pdfUrl} className={styles.primaryCTA} target="_blank" rel="noopener noreferrer">
         View My CV
       </a>
     </section>

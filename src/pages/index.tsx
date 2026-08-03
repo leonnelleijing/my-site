@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function Home(): React.ReactNode {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
-
+  const pdfUrl = useBaseUrl('/pdf/CV_Developer.pdf');
   useEffect(() => {
     const elements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     const observer = new IntersectionObserver(
@@ -35,7 +23,6 @@ export default function Home(): React.ReactNode {
   }, []);
 
   const scrollToSection = (id: string) => {
-    setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -49,65 +36,6 @@ export default function Home(): React.ReactNode {
       description="Fullstack Developer crafting scalable web & mobile solutions. Spring Boot, Angular, Vue, React, Golang, Kubernetes, DevOps.">
 
       <div className="homepage-layout bg-[var(--color-bg)] text-[var(--color-text)] selection:bg-[var(--color-tertiary)] min-h-screen">
-
-        {/* Mobile menu trigger (shown only on small screens) */}
-        <button
-          onClick={() => setMobileMenuOpen(true)}
-          aria-label="Open menu"
-          className="md:hidden fixed top-20 right-5 z-50 p-3 bg-[var(--color-icon-bg)] text-[var(--color-icon-fg)] rounded-full hard-shadow border-0 hover:cursor-pointer"
-        >
-          <span className="material-symbols-outlined">menu</span>
-        </button>
-
-        {/* Mobile Nav Drawer */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-[60] bg-[var(--color-bg)] flex flex-col items-center justify-center p-8 space-y-8 animate-fadeIn md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="absolute top-6 right-6 p-2 bg-transparent border-0 text-[var(--color-ink)] focus:outline-none hover:cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-4xl">close</span>
-            </button>
-            <a
-              href="#"
-              onClick={() => setMobileMenuOpen(false)}
-              className="font-label text-[var(--color-secondary)] font-bold text-2xl border-b-2 border-[var(--color-secondary)] pb-1 hover:no-underline"
-            >
-              Home
-            </a>
-            <button
-              onClick={() => scrollToSection('what-i-do')}
-              className="text-[var(--color-text-muted)] font-semibold text-2xl hover:text-[var(--color-ink)] bg-transparent border-0 hover:cursor-pointer"
-            >
-              What I Do
-            </button>
-            <button
-              onClick={() => scrollToSection('experience')}
-              className="text-[var(--color-text-muted)] font-semibold text-2xl hover:text-[var(--color-ink)] bg-transparent border-0 hover:cursor-pointer"
-            >
-              Experience
-            </button>
-            <button
-              onClick={() => scrollToSection('tech')}
-              className="text-[var(--color-text-muted)] font-semibold text-2xl hover:text-[var(--color-ink)] bg-transparent border-0 hover:cursor-pointer"
-            >
-              Tech Stack
-            </button>
-            <Link
-              to="/docs/devops/linux"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[var(--color-text-muted)] font-semibold text-2xl hover:text-[var(--color-ink)] hover:no-underline"
-            >
-              Learning Notes
-            </Link>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="bg-[var(--color-ink-solid)] text-white px-8 py-3 rounded-lg font-bold text-base hard-shadow hover:cursor-pointer"
-            >
-              Get In Touch
-            </button>
-          </div>
-        )}
 
         <main>
           {/* Hero Section */}
@@ -134,7 +62,7 @@ export default function Home(): React.ReactNode {
                     </span>
                   </button>
                   <a
-                    href="/pdf/CV_Developer.pdf"
+                    href={pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-transparent text-[var(--color-hero-text)] font-bold text-base px-8 py-4 rounded-lg border-2 border-[var(--color-hero-text)] hard-shadow-hover transition-all inline-flex items-center justify-center hover:no-underline hover:text-white"
@@ -290,9 +218,16 @@ export default function Home(): React.ReactNode {
                     <div className="text-sm font-medium text-[var(--color-text-subtle)]">Paris, France</div>
                   </div>
                   <div className="md:w-2/3 bg-[var(--color-bg)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
-                    <p className="text-base text-[var(--color-text-muted)] leading-relaxed m-0">
-                      Development of video streaming applications with Spring Boot, Vue, and Golang. Management of pipelines with Gitlab CI. Deployment of Helm charts on Kubernetes. Infrastructure management with Terraform and Ansible.
-                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {['Spring Boot', 'Vue.js', 'Golang', 'Kubernetes', 'Gitlab CI', 'Terraform', 'Ansible'].map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-4 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)] rounded-full text-sm font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -309,20 +244,34 @@ export default function Home(): React.ReactNode {
                   <div className="md:w-2/3 bg-[var(--color-bg)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
                     <div className="space-y-6">
                       <div>
-                        <h4 className="text-base font-bold text-[var(--color-text-heading)] underline decoration-[var(--color-tertiary)] decoration-2 underline-offset-4 mb-2">
+                        <h4 className="text-base font-bold text-[var(--color-text-heading)] underline decoration-[var(--color-tertiary)] decoration-2 underline-offset-4 mb-3">
                           Air France
                         </h4>
-                        <p className="text-base text-[var(--color-text-muted)] leading-relaxed m-0">
-                          Development of security applications with Spring Boot/Angular. Hybrid mobile support with Ionic. Migration of Ionic projects. Creation of internal Frontend toolkits. CI/CD management with Bamboo, GitHub, Kubernetes, and Azure.
-                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {['Spring Boot', 'Angular', 'Ionic', 'Kubernetes', 'Azure'].map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-4 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)] rounded-full text-sm font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                       <div>
-                        <h4 className="text-base font-bold text-[var(--color-text-heading)] underline decoration-[var(--color-accent)] decoration-2 underline-offset-4 mb-2">
+                        <h4 className="text-base font-bold text-[var(--color-text-heading)] underline decoration-[var(--color-accent)] decoration-2 underline-offset-4 mb-3">
                           Pierre Fabre
                         </h4>
-                        <p className="text-base text-[var(--color-text-muted)] leading-relaxed m-0">
-                          Integration of Pricefx software. Data modeling and integration (Data Mart). Development of Java/Groovy functions (dashboards, pricelists), client support.
-                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {['Java', 'Groovy', 'Pricefx'].map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-4 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)] rounded-full text-sm font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -405,7 +354,7 @@ export default function Home(): React.ReactNode {
                     LinkedIn Profile
                   </a>
                   <a
-                    href="/pdf/CV_Developer.pdf"
+                    href={pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-transparent border-2 border-[var(--color-offwhite)] text-[var(--color-offwhite)] font-bold text-base px-8 py-4 rounded-lg hard-shadow-hover transition-all flex items-center justify-center gap-2 hover:no-underline hover:text-white"
@@ -449,7 +398,7 @@ export default function Home(): React.ReactNode {
                   LinkedIn
                 </a>
                 <a
-                  href="/pdf/CV_Developer.pdf"
+                  href={pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] transition-colors hover:no-underline"

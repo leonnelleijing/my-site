@@ -19,9 +19,6 @@
   --ifm-background-color: #F3EFE2;
   --ifm-navbar-background-color: #252753;
   --ifm-navbar-link-color: #ffffff;
-  --ifm-navbar-link-hover-color: #ffffff;
-  --ifm-navbar-link-active-color: #ffffff;
-  --ifm-navbar-shadow: none;
 
   /* --- Page semantic tokens (used by src/pages/index.tsx) --- */
   --color-bg: #F3EFE2;           /* page / section background */
