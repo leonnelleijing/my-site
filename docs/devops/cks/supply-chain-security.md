@@ -117,6 +117,118 @@ Admission controllers are a powerful tool for enforcing security policies in you
 
 The `ImagePolicyWebhook` is a built-in admission controller that can be used to validate images against a remote webhook. When an image is about to be run, the API server sends a request to the webhook, which can then approve or deny the image.
 
+### Create the Admission Configuration File
+
+This file tells the API server how to configure the `ImagePolicyWebhook` admission controller.
+
+Create a file named `admission-config.yaml`:
+
+```yaml
+# admission-config.yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: ImagePolicyWebhook
+  configuration:
+    imagePolicy:
+      # Path to the kubeconfig file for the webhook
+      kubeConfigFile: /etc/kubernetes/pki/webhook.kubeconfig
+      # How long to cache 'allow' responses
+      allowTTL: 60
+      # How long to cache 'deny' responses
+      denyTTL: 60
+      # Backoff for retrying failed webhook calls (in milliseconds)
+      retryBackoff: 500
+      # If the webhook is unavailable, default to allowing the image
+      defaultAllow: true
+```
+
+-   `kubeConfigFile`: Points to the kubeconfig file the API server will use to connect to your webhook service.
+-   `allowTTL` / `denyTTL`: Caching durations for webhook decisions to reduce traffic.
+-   `retryBackoff`: Delay before retrying a failed connection to the webhook.
+-   `defaultAllow`: A critical setting. If `true`, images are allowed if the webhook is unreachable. For a secure setup, this is often set to `false`.
+
+### Create the Kubeconfig File
+
+This kubeconfig file is for the API server, giving it the address and credentials to connect to your webhook server.
+
+Create a file named `webhook.kubeconfig`:
+
+```yaml
+# webhook.kubeconfig
+apiVersion: v1
+kind: Config
+clusters:
+- name: image-validation-webhook
+  cluster:
+    # URL of your webhook server
+    server: https://image-validator.default.svc:8443/validate
+    # The CA bundle of the webhook server's certificate
+    certificate-authority: /etc/kubernetes/pki/webhook-ca.crt
+users:
+- name: kube-apiserver
+  user:
+    # Client certificate for the apiserver to authenticate to the webhook
+    client-certificate: /etc/kubernetes/pki/apiserver-webhook-client.crt
+    client-key: /etc/kubernetes/pki/apiserver-webhook-client.key
+contexts:
+- name: image-validation-context
+  context:
+    cluster: image-validation-webhook
+    user: kube-apiserver
+current-context: image-validation-context
+```
+
+-   **`server`**: The address of your webhook service. It's best to use the internal cluster service DNS name.
+-   **`certificate-authority`**: The CA certificate to verify the webhook server's identity.
+-   **`client-certificate` / `client-key`**: The client credentials the API server uses to authenticate itself to the webhook (mTLS).
+
+### Update the Kube-APIServer Flags
+
+Finally, you need to configure the `kube-apiserver` to use the admission controller. This is done by editing its static pod manifest.
+
+Edit `/etc/kubernetes/manifests/kube-apiserver.yaml`:
+
+```yaml
+# /etc/kubernetes/manifests/kube-apiserver.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    # ... other flags
+    - --enable-admission-plugins=...,ImagePolicyWebhook,...
+    - --admission-control-config-file=/etc/kubernetes/pki/admission-config.yaml
+    volumeMounts:
+    # ... other volume mounts
+    - name: admission-config
+      mountPath: /etc/kubernetes/pki/admission-config.yaml
+      readOnly: true
+    - name: webhook-config
+      mountPath: /etc/kubernetes/pki/webhook.kubeconfig
+      readOnly: true
+  volumes:
+  # ... other volumes
+  - name: admission-config
+    hostPath:
+      path: /etc/kubernetes/pki/admission-config.yaml
+      type: File
+  - name: webhook-config
+    hostPath:
+      path: /etc/kubernetes/pki/webhook.kubeconfig
+      type: File
+```
+
+1.  **`--enable-admission-plugins`**: Add `ImagePolicyWebhook` to the list of enabled admission plugins. The order matters; it's generally recommended to put validating webhooks towards the end of the chain.
+2.  **`--admission-control-config-file`**: Points to the admission configuration file you created.
+3.  **Volume Mounts**: You must mount the `admission-config.yaml` and `webhook.kubeconfig` files into the `kube-apiserver` pod so it can access them.
+
+After saving the changes to the manifest, the kubelet will automatically restart the `kube-apiserver` with the new configuration.
+
 #### OPA/Gatekeeper and Kyverno
 
 -   **OPA/Gatekeeper**: Open Policy Agent (OPA) is a general-purpose policy engine. Gatekeeper is a Kubernetes-native policy engine that uses OPA. You can write policies in Rego to enforce a wide range of security policies, including restricting which registries images can be pulled from.
