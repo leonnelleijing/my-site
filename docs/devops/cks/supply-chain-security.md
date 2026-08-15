@@ -109,6 +109,65 @@ vim /usr/lib/systemd/system/docker.socket
 vim /usr/lib/systemd/system/docker.service
 ```
 
+### Socket file ownership
+
+By default, the Docker socket is owned by `root` with group ownership of `docker`. You can change the group ownership to restrict access to a specific group of users.
+
+In the `/usr/lib/systemd/system/docker.socket` file, you can specify the group that should own the socket:
+
+```ini
+[Socket]
+ListenStream=/var/run/docker.sock
+SocketMode=0660
+SocketUser=root
+SocketGroup=docker # Change this to a more restrictive group if needed
+```
+
+After changing the `SocketGroup`, reload the systemd daemon and restart the Docker socket:
+
+```bash
+systemctl daemon-reload
+systemctl restart docker.socket
+```
+
+This ensures that only members of the specified group can access the Docker socket.
+
+### Restricting TCP Network Socket Exposure
+
+Exposing the Docker daemon over a TCP socket without proper security measures is a significant security risk. Anyone with access to the socket can control the Docker daemon.
+
+By default, Docker does not listen on a TCP socket. If you need to enable it, you must secure it with TLS.
+
+To check if Docker is listening on a TCP socket, inspect the `docker.service` file:
+
+```bash
+cat /usr/lib/systemd/system/docker.service
+```
+
+Look for the `-H` or `--host` flag in the `ExecStart` line. For example, `ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375` would indicate that Docker is listening on all network interfaces on port 2375.
+
+To disable TCP listening, remove the `-H` flag that specifies a TCP address from the `ExecStart` line in the `docker.service` file.
+
+If you must expose the Docker daemon over TCP, secure it with TLS by using the following flags:
+
+-   `--tlsverify`: Enable TLS verification.
+-   `--tlscacert`: Path to the CA certificate.
+-   `--tlscert`: Path to the server certificate.
+-   `--tlskey`: Path to the server key.
+
+Example of a secured `ExecStart` line:
+
+```
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376 --tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server-cert.pem --tlskey=/etc/docker/server-key.pem
+```
+
+After modifying the service file, reload systemd and restart Docker:
+
+```bash
+systemctl daemon-reload
+systemctl restart docker.service
+```
+
 ### Admission Controllers
 
 Admission controllers are a powerful tool for enforcing security policies in your cluster. They can intercept requests to the Kubernetes API server and can validate or mutate the requests.

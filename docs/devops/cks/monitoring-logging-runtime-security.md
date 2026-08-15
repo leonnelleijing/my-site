@@ -29,7 +29,7 @@ Falco is a CNCF project that provides runtime security for Kubernetes. It can de
 
 Falco works by using a kernel module or an eBPF probe to capture system calls. These system calls are then analyzed by the Falco engine, which compares them against a set of rules.
 
-#### Falco Rule Snippet:
+#### Falco Rule Snippets:
 
 ```yaml
 - list: administrative_shells
@@ -42,6 +42,31 @@ Falco works by using a kernel module or an eBPF probe to capture system calls. T
   desc: Alerts if an inbound network event spawns a sensitive shell terminal
   condition: inbound_network_event and proc.name in (administrative_shells)
   output: "Alert: %proc.name spawned on port %fd.cport (user=%user.name)"
+  priority: CRITICAL
+
+- rule: Sensitive File Read
+  desc: Alerts when a sensitive file (e.g., shadow, hosts) is read
+  condition: >
+    (open_read and fd.name contains "/etc/shadow") or
+    (open_read and fd.name contains "/etc/hosts") or
+    (open_read and fd.name contains "/etc/kubernetes/admin.conf")
+  output: "Sensitive file %fd.name read by %proc.name (user=%user.name container_id=%container.id)"
+  priority: HIGH
+
+- rule: Unexpected Outbound Connection
+  desc: Alerts on any outbound network connection from a container that is not expected
+  condition: >
+    evt.type = connect and evt.dir = > and fd.cip != "0.0.0.0" and fd.sip != "0.0.0.0" and
+    container.id != host and
+    not fd.port in (80, 443, 53) # Exclude common HTTP/S and DNS
+  output: "Unexpected outbound connection from container %container.name (%container.image) to %fd.cip:%fd.cport (user=%user.name)"
+  priority: MEDIUM
+
+- rule: Launch Privileged Container
+  desc: Detects when a privileged container is launched
+  condition: >
+    spawn_process and container.privileged=true and container.id != host
+  output: "Privileged container launched (name=%container.name image=%container.image cmd=%proc.cmdline user=%user.name)"
   priority: CRITICAL
 ```
 
@@ -116,3 +141,56 @@ Audit logs can be voluminous, so it's important to have tools to help you analyz
 ```bash
 kubectl label namespace default istio-injection=enabled --overwrite
 ```
+
+### Istio PeerAuthentication
+
+The `PeerAuthentication` resource in Istio is used to configure mutual TLS (mTLS) settings for communication between workloads in the service mesh. It allows you to enforce encrypted and authenticated communication, which is a critical security practice.
+
+`PeerAuthentication` policies can be applied at different scopes:
+-   **Mesh-wide**: Applied to all workloads in the mesh (in the root `istio-system` namespace).
+-   **Namespace-wide**: Applied to all workloads in a specific namespace.
+-   **Workload-specific**: Applied to a specific workload within a namespace.
+
+#### mTLS Modes
+
+The `PeerAuthentication` resource has three mTLS modes:
+-   `STRICT`: Only mTLS encrypted traffic is accepted.
+-   `PERMISSIVE`: Both mTLS and plaintext traffic are accepted. This is the default mode and is useful when migrating services to the mesh, as it allows communication from both Istio-enabled and non-Istio-enabled services.
+-   `DISABLE`: mTLS is disabled. Plaintext traffic is used.
+
+#### Example: Enforcing STRICT mTLS for a Namespace
+
+To enforce `STRICT` mTLS for all workloads in the `default` namespace, you would apply the following policy:
+
+```yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-strict-mtls
+  namespace: default
+spec:
+  mtls:
+    mode: STRICT
+```
+
+With this policy in place, any unencrypted traffic sent to a service in the `default` namespace will be rejected.
+
+#### Example: Overriding mTLS for a Specific Workload
+
+You can override the namespace-wide policy for a specific workload using a `selector`. For example, to disable mTLS for the `my-legacy-app` workload in the `default` namespace, you would apply the following policy:
+
+```yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: my-legacy-app-disable-mtls
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: my-legacy-app
+  mtls:
+    mode: DISABLE
+```
+
+This workload-specific policy takes precedence over the namespace-wide policy for any pods with the label `app: my-legacy-app`.
