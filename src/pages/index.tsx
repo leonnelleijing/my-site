@@ -3,6 +3,36 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
+// Card content for the "What I Do" grid. `accent` drives the icon, the bullet
+// dots, the top strip and the hover shadow, so each card's color lives in one
+// place (see .accent-card in custom.css).
+const WHAT_I_DO = [
+  {
+    title: 'Backend',
+    icon: 'database',
+    accent: 'var(--color-secondary)',
+    items: ['Spring Boot', 'Node.js', 'Golang'],
+  },
+  {
+    title: 'Frontend',
+    icon: 'laptop_mac',
+    accent: 'var(--color-accent)',
+    items: ['Angular', 'Vue.js', 'React'],
+  },
+  {
+    title: 'Mobile',
+    icon: 'smartphone',
+    accent: 'var(--color-ink)',
+    items: ['React Native', 'Ionic'],
+  },
+  {
+    title: 'DevOps',
+    icon: 'cloud_done',
+    accent: 'var(--color-secondary)',
+    items: ['K8s & Docker', 'Gitlab/Github CI', 'Terraform & Azure', 'Helm & Ansible'],
+  },
+];
+
 export default function Home(): React.ReactNode {
   const pdfUrl = useBaseUrl('/pdf/CV_Developer.pdf');
   useEffect(() => {
@@ -95,8 +125,10 @@ export default function Home(): React.ReactNode {
           </section>
 
           {/* What I Do Section */}
-          <section id="what-i-do" className="snap-section min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
-            <div className="max-w-[1200px] mx-auto">
+          <section
+            id="what-i-do"
+            className="snap-section section-decor decor-dots min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
+            <div className="relative z-10 max-w-[1200px] mx-auto w-full">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] flex items-center gap-4">
                   <span className="gradient-bar w-12 h-1.5 rounded-full inline-block"></span>
@@ -105,100 +137,40 @@ export default function Home(): React.ReactNode {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* Backend */}
-                <div className="fade-in-up fade-delay-1 tilt-card bg-[var(--color-surface)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
-                  <span className="material-symbols-outlined text-[var(--color-secondary)] text-4xl mb-4 block">
-                    database
-                  </span>
-                  <h3 className="text-2xl font-bold text-[var(--color-text-heading)] mb-4">Backend</h3>
-                  <ul className="space-y-2 text-[var(--color-text-muted)] font-medium text-base list-none p-0 m-0">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Spring Boot
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Node.js
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Golang
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Frontend */}
-                <div className="fade-in-up fade-delay-2 tilt-card bg-[var(--color-surface)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
-                  <span className="material-symbols-outlined text-[var(--color-accent)] text-4xl mb-4 block">
-                    laptop_mac
-                  </span>
-                  <h3 className="text-2xl font-bold text-[var(--color-text-heading)] mb-4">Frontend</h3>
-                  <ul className="space-y-2 text-[var(--color-text-muted)] font-medium text-base list-none p-0 m-0">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
-                      Angular
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
-                      Vue.js
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
-                      React
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Mobile */}
-                <div className="fade-in-up fade-delay-3 tilt-card bg-[var(--color-surface)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
-                  <span className="material-symbols-outlined text-[var(--color-ink)] text-4xl mb-4 block">
-                    smartphone
-                  </span>
-                  <h3 className="text-2xl font-bold text-[var(--color-text-heading)] mb-4">Mobile</h3>
-                  <ul className="space-y-2 text-[var(--color-text-muted)] font-medium text-base list-none p-0 m-0">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-ink)]"></span>
-                      React Native
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-ink)]"></span>
-                      Ionic
-                    </li>
-                  </ul>
-                </div>
-
-                {/* DevOps */}
-                <div className="fade-in-up fade-delay-4 tilt-card bg-[var(--color-surface)] p-8 rounded-2xl border-2 border-[var(--color-border)] hard-shadow">
-                  <span className="material-symbols-outlined text-[var(--color-secondary)] text-4xl mb-4 block">
-                    cloud_done
-                  </span>
-                  <h3 className="text-2xl font-bold text-[var(--color-text-heading)] mb-4">DevOps</h3>
-                  <ul className="space-y-2 text-[var(--color-text-muted)] font-medium text-base list-none p-0 m-0">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      K8s & Docker
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Gitlab/Github CI
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Terraform & Azure
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]"></span>
-                      Helm & Ansible
-                    </li>
-                  </ul>
-                </div>
+                {WHAT_I_DO.map((card, i) => (
+                  <div
+                    key={card.title}
+                    style={{ ['--card-accent' as string]: card.accent }}
+                    className={`fade-in-up fade-delay-${i + 1} tilt-card accent-card bg-[var(--color-surface)] p-8 pt-9 rounded-2xl border-2 border-[var(--color-border)] hard-shadow`}>
+                    <span
+                      className="material-symbols-outlined text-4xl mb-4 block"
+                      style={{ color: card.accent }}>
+                      {card.icon}
+                    </span>
+                    <h3 className="text-2xl font-bold text-[var(--color-text-heading)] mb-4">
+                      {card.title}
+                    </h3>
+                    <ul className="space-y-2 text-[var(--color-text-muted)] font-medium text-base list-none p-0 m-0">
+                      {card.items.map((item) => (
+                        <li key={item} className="flex items-center gap-2">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: card.accent }}></span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* My Experience Section */}
-          <section id="experience" className="snap-section min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg-alt)]">
-            <div className="max-w-[1200px] mx-auto">
+          <section
+            id="experience"
+            className="snap-section section-decor decor-grid min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg-alt)]">
+            <div className="relative z-10 max-w-[1200px] mx-auto w-full">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] flex items-center gap-4">
                   <span className="gradient-bar w-12 h-1.5 rounded-full inline-block"></span>
@@ -206,11 +178,13 @@ export default function Home(): React.ReactNode {
                 </h2>
               </div>
 
-              <div className="space-y-12">
+              <div className="timeline space-y-12">
                 {/* Experience 1 */}
-                <div className="fade-in-left flex flex-col md:flex-row gap-8 items-start">
+                <div
+                  className="timeline-item fade-in-left flex flex-col md:flex-row gap-8 items-start"
+                  style={{ ['--dot-color' as string]: 'var(--color-accent)' }}>
                   <div className="md:w-1/3">
-                    <div className="font-label text-xs font-bold text-[var(--color-secondary)] uppercase tracking-wider mb-2">
+                    <div className="date-pill font-label text-xs font-bold uppercase tracking-wider mb-3">
                       Apr 2025 - Present
                     </div>
                     <h3 className="text-2xl font-bold text-[var(--color-text-heading)]">Project Engineer</h3>
@@ -232,9 +206,11 @@ export default function Home(): React.ReactNode {
                 </div>
 
                 {/* Experience 2 */}
-                <div className="fade-in-right flex flex-col md:flex-row gap-8 items-start">
+                <div
+                  className="timeline-item fade-in-right flex flex-col md:flex-row gap-8 items-start"
+                  style={{ ['--dot-color' as string]: 'var(--color-secondary)' }}>
                   <div className="md:w-1/3">
-                    <div className="font-label text-xs font-bold text-[var(--color-secondary)] uppercase tracking-wider mb-2">
+                    <div className="date-pill font-label text-xs font-bold uppercase tracking-wider mb-3">
                       Oct 2021 - Apr 2025
                     </div>
                     <h3 className="text-2xl font-bold text-[var(--color-text-heading)]">Fullstack Developer</h3>
@@ -281,8 +257,10 @@ export default function Home(): React.ReactNode {
           </section>
 
           {/* Tech Stack Section */}
-          <section id="tech" className="snap-section min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
-            <div className="max-w-[1200px] mx-auto text-center">
+          <section
+            id="tech"
+            className="snap-section section-decor decor-spotlight decor-dots min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
+            <div className="relative z-10 max-w-[1200px] mx-auto w-full text-center">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] mb-4">
                   Technologies I Use

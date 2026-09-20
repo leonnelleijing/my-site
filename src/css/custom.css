@@ -19,6 +19,13 @@
   --ifm-background-color: #F3EFE2;
   --ifm-navbar-background-color: #252753;
   --ifm-navbar-link-color: #ffffff;
+  /* Infima has no navbar `color` rule — the navbar simply inherits body text.
+     On this dark navbar that made every currentColor icon (color-mode toggle,
+     mobile hamburger) near-black on navy. Applied in the navbar block below. */
+  --color-navbar-fg: #ffffff;
+  /* Also drives .navbar__link--active, which otherwise resolves to the
+     primary color (#10113e) and disappears against the navbar. */
+  --ifm-navbar-link-hover-color: var(--color-tertiary);
 
   /* --- Page semantic tokens (used by src/pages/index.tsx) --- */
   --color-bg: #F3EFE2;           /* page / section background */
@@ -51,6 +58,13 @@
   --color-shadow: #10113e;
   --color-white: #ffffff;
   --color-offwhite: #fdf9ec;
+
+  /* --- Section decoration tokens (patterns + ambient glows) --- */
+  --pattern-dot: rgba(16, 17, 62, 0.09);
+  --pattern-grid: rgba(16, 17, 62, 0.06);
+  --glow-a: rgba(251, 69, 42, 0.13);    /* coral */
+  --glow-b: rgba(168, 205, 210, 0.30);  /* mint */
+  --glow-c: rgba(159, 66, 0, 0.10);     /* burnt orange */
 }
 
 /* ============================================
@@ -96,6 +110,62 @@ html[data-theme='dark'] {
   --color-shadow: #000000;
   --color-white: #ffffff;
   --color-offwhite: #1d1b20;
+
+  --pattern-dot: rgba(255, 255, 255, 0.07);
+  --pattern-grid: rgba(255, 255, 255, 0.05);
+  --glow-a: rgba(251, 113, 133, 0.12);
+  --glow-b: rgba(205, 192, 233, 0.11);
+  --glow-c: rgba(231, 195, 101, 0.08);
+}
+
+/* ============================================
+   NAVBAR / MOBILE DRAWER
+   The navbar sits on a dark surface in both themes, so these "on dark"
+   overrides are intentionally NOT scoped to a single [data-theme].
+   ============================================ */
+
+/* Icons in the navbar and the mobile drawer paint with currentColor, which
+   without this inherits the light-theme body color (#1c1e21) — a near-black
+   glyph on a navy bar. This is the fix for the invisible color-mode toggle
+   and the invisible mobile menu button. */
+.navbar,
+.navbar-sidebar {
+  color: var(--color-navbar-fg);
+}
+
+/* Icon buttons in the navbar (color-mode toggle, hamburger) default to a
+   near-white hover background from --ifm-color-emphasis-200, which erases the
+   now-white glyph. Use a translucent white wash instead. */
+.navbar button.clean-btn:hover,
+.navbar-sidebar button.clean-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* The mobile drawer inherits --ifm-navbar-background-color (dark navy), but the
+   menu links keep the light-theme palette: grey #606770 links and a #10113e
+   active link that vanishes. Scoped to the drawer so the docs sidebar, which is
+   on a light background, keeps its own colors. */
+.navbar-sidebar {
+  --ifm-menu-color: rgba(255, 255, 255, 0.78);
+  --ifm-menu-color-active: var(--color-tertiary);
+  --ifm-menu-color-background-active: rgba(255, 255, 255, 0.1);
+  --ifm-menu-color-background-hover: rgba(255, 255, 255, 0.08);
+  /* The expand/collapse carets are a dark SVG data-URI that Infima only
+     inverts under [data-theme='dark']. The drawer is dark in light mode too,
+     so invert them here or they vanish against the navy. */
+  --ifm-menu-link-sublist-icon-filter: invert(100%);
+}
+
+/* IconClose is rendered with a hardcoded --ifm-color-emphasis-600 stroke, which
+   is a low-contrast grey on the dark drawer. */
+.navbar-sidebar__close svg,
+.navbar-sidebar__close svg path {
+  stroke: var(--color-navbar-fg);
+}
+
+/* The drawer's "back" button for nested menus has the same light-theme issue. */
+.navbar-sidebar__back {
+  color: var(--color-navbar-fg);
 }
 
 /* Material symbols styling */
@@ -326,4 +396,165 @@ h1, h2, h3, h4, h5, h6 {
   .glow-blob {
     animation: none;
   }
+}
+
+/* ============================================
+   SECTION DECORATION
+   Layered backgrounds for the homepage sections. Each decor class paints into
+   a pseudo-element at z-index 0; section content must sit in a wrapper marked
+   `relative z-10` so it stays above. All colors come from the theme tokens
+   above, so light/dark both work without duplicating rules here.
+   ============================================ */
+.section-decor {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-decor::before,
+.section-decor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient color blooms. Two soft radials on opposite corners give the flat
+   cream background some depth without competing with the cards. */
+.section-decor::after {
+  background:
+    radial-gradient(38rem 24rem at 10% 15%, var(--glow-a), transparent 62%),
+    radial-gradient(32rem 22rem at 92% 85%, var(--glow-b), transparent 62%);
+}
+
+/* Dot grid, masked to fade out at the edges so it reads as texture rather
+   than as a hard-edged pattern swatch. */
+.decor-dots::before {
+  background-image: radial-gradient(var(--pattern-dot) 1.5px, transparent 1.6px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 35%, transparent 100%);
+}
+
+/* Blueprint grid, faded top and bottom so sections blend into each other. */
+.decor-grid::before {
+  background-image:
+    linear-gradient(var(--pattern-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-grid) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+}
+
+/* Warmer, single-bloom variant for the tech section. */
+.decor-spotlight::after {
+  background:
+    radial-gradient(30rem 20rem at 50% 8%, var(--glow-c), transparent 65%),
+    radial-gradient(26rem 18rem at 50% 100%, var(--glow-b), transparent 65%);
+}
+
+/* ============================================
+   ACCENT CARDS (What I Do)
+   Each card sets --card-accent inline; the strip, hover shadow and hover
+   border all read from it, so a card's color is defined in one place.
+   ============================================ */
+.accent-card {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.accent-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--card-accent), transparent 85%);
+}
+
+/* A soft wash of the accent bleeding up from the bottom of the card. */
+.accent-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 60%;
+  background: linear-gradient(to top, var(--card-accent), transparent);
+  opacity: 0.07;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.accent-card:hover::after {
+  opacity: 0.16;
+}
+
+.accent-card:hover {
+  border-color: var(--card-accent);
+  box-shadow: 6px 6px 0 0 var(--card-accent);
+}
+
+.accent-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   EXPERIENCE TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+}
+
+/* The rail. Sits under the dots, inset so it starts and ends at the first
+   and last dot rather than running the full height of the list. */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--color-accent),
+    var(--color-secondary),
+    var(--color-tertiary)
+  );
+  opacity: 0.45;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--color-bg-alt);
+  border: 3px solid var(--dot-color, var(--color-accent));
+  box-shadow: 0 0 0 4px var(--color-bg-alt);
+}
+
+@media (max-width: 640px) {
+  .timeline::before { left: 6px; }
+  .timeline-item { padding-left: 1.75rem; }
+}
+
+/* Date pill on each experience entry. */
+.date-pill {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
 }

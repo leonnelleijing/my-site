@@ -1,3 +1,7 @@
+---
+title: Linux
+---
+
 ```
 sudo tee
 ```

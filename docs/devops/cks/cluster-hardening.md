@@ -4,6 +4,18 @@ title: CKS - Cluster Hardening
 sidebar_label: Cluster Hardening
 ---
 
+## CIS Benchmark for Kubernetes
+
+The Center for Internet Security (CIS) has published a benchmark for Kubernetes that provides a set of security best practices for configuring Kubernetes. The benchmark covers a wide range of topics, including:
+-   API server hardening
+-   Kubelet hardening
+-   etcd hardening
+-   Pod security
+-   Network security
+
+You can use the `kube-bench` tool to check your cluster against the CIS Kubernetes Benchmark.
+[https://github.com/aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench)
+
 ## API Server Hardening
 
 The Kubernetes API server is the central point of control for the entire cluster. It is essential to harden the API server to protect against a variety of attacks.
@@ -194,57 +206,9 @@ metadata:
 automountServiceAccountToken: false # Disable token automount for all pods using this SA
 ```
 
-**Interaction with Projected Volumes**:
-While `automountServiceAccountToken: false` prevents the default service account token from being mounted, it does *not* prevent a token from being explicitly included as a source in a `projected` volume. If you use a `projected` volume, ensure that you only include the necessary sources and *do not* include a `serviceAccountToken` source if the pod does not require API access.
-
-Example of a projected volume explicitly *excluding* a service account token:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: myapp-projected-no-sa-token
-spec:
-  serviceAccountName: my-service-account # Use a service account, but don't automount its token
-  automountServiceAccountToken: false
-  containers:
-  - name: mycontainer
-    image: myimage
-    volumeMounts:
-    - name: projected-secrets
-      mountPath: /projected/secrets
-      readOnly: true
-  volumes:
-  - name: projected-secrets
-    projected:
-      sources:
-      - secret:
-          name: my-secret
-      - configMap:
-          name: my-configmap
-      # Do NOT include a serviceAccountToken source here if API access is not needed:
-      #- serviceAccountToken:
-      #    path: token
-      #    expirationSeconds: 3607
-      #    audience: my-audience
-```
-
-This ensures that even when using advanced volume features like projected volumes, you maintain strict control over service account token exposure.
-
 **Use Bound Service Account Tokens**:
 Kubernetes v1.20+ introduced bound service account tokens, which have a limited lifetime and audience. This reduces the risk if a token is compromised. Ensure your cluster is configured to use these. You define the expiration time and audience when requesting a token.
 
 **Reviewing Service Account Usage**:
 Regularly audit which pods use which service accounts and what permissions those service accounts have. Tools like Kube-Hunter or Kube-Bench can help identify misconfigurations.
 
-## CIS Benchmark for Kubernetes
-
-The Center for Internet Security (CIS) has published a benchmark for Kubernetes that provides a set of security best practices for configuring Kubernetes. The benchmark covers a wide range of topics, including:
--   API server hardening
--   Kubelet hardening
--   etcd hardening
--   Pod security
--   Network security
-
-You can use the `kube-bench` tool to check your cluster against the CIS Kubernetes Benchmark.
-[https://github.com/aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench)

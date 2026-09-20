@@ -4,6 +4,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+const baseUrl = '/my-site/';
+
 const config: Config = {
   title: 'LEI Jing',
   tagline: 'Développeur Fullstack',
@@ -18,7 +20,7 @@ const config: Config = {
   url: 'https://your-docusaurus-site.example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/my-site/',
+  baseUrl,
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'leonnelleijing', // Usually your GitHub org/user name.
@@ -100,6 +102,10 @@ const config: Config = {
           to: '/',
           label: 'Home',
           position: 'left',
+          // Without this, react-router's NavLink does a prefix match on the
+          // resolved href ('/my-site/'), so Home renders as active on every
+          // page of the site. Anchor the match to the homepage itself.
+          activeBaseRegex: `^${baseUrl}?$`,
         },
         {
           type: 'docSidebar',
