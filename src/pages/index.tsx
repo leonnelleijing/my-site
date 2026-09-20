@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Terminal from '@site/src/components/Terminal';
 
 // Card content for the "What I Do" grid. `accent` drives the icon, the bullet
 // dots, the top strip and the hover shadow, so each card's color lives in one
@@ -124,10 +125,30 @@ export default function Home(): React.ReactNode {
             </button>
           </section>
 
+          {/* Terminal Section */}
+          <section
+            id="terminal"
+            className="snap-section section-decor decor-art decor-circuit min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg-alt)]">
+            <div className="relative z-10 max-w-[1200px] mx-auto w-full">
+              <div className="fade-in-up mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] flex items-center gap-4">
+                  <span className="gradient-bar w-12 h-1.5 rounded-full inline-block"></span>
+                  whoami
+                </h2>
+                <p className="mt-3 text-base text-[var(--color-text-muted)] font-label">
+                  A quick session, if you prefer the command line.
+                </p>
+              </div>
+              <div className="fade-in-up fade-delay-1">
+                <Terminal />
+              </div>
+            </div>
+          </section>
+
           {/* What I Do Section */}
           <section
             id="what-i-do"
-            className="snap-section section-decor decor-dots min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
+            className="snap-section section-decor decor-art decor-circuit min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
             <div className="relative z-10 max-w-[1200px] mx-auto w-full">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] flex items-center gap-4">
@@ -169,7 +190,7 @@ export default function Home(): React.ReactNode {
           {/* My Experience Section */}
           <section
             id="experience"
-            className="snap-section section-decor decor-grid min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg-alt)]">
+            className="snap-section section-decor decor-art decor-topo min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg-alt)]">
             <div className="relative z-10 max-w-[1200px] mx-auto w-full">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] flex items-center gap-4">
@@ -259,7 +280,7 @@ export default function Home(): React.ReactNode {
           {/* Tech Stack Section */}
           <section
             id="tech"
-            className="snap-section section-decor decor-spotlight decor-dots min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
+            className="snap-section section-decor decor-spotlight decor-art decor-hex min-h-screen flex flex-col justify-center py-24 px-5 md:px-12 bg-[var(--color-bg)]">
             <div className="relative z-10 max-w-[1200px] mx-auto w-full text-center">
               <div className="fade-in-up mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-heading)] mb-4">
