@@ -741,3 +741,20 @@ h1, h2, h3, h4, h5, h6 {
   .term-title { display: none; }
 }
 
+
+/* ---------- Docs: KaTeX math & Mermaid diagrams ---------- */
+
+/* Wide display formulas scroll inside the article instead of spilling into the TOC. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+/* Center diagrams and let them use the full article width. */
+.docusaurus-mermaid-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--ifm-leading);
+  overflow-x: auto;
+}

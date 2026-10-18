@@ -1,0 +1,8 @@
+{
+  "label": "CS50 AI",
+  "link": {
+    "type": "generated-index",
+    "title": "CS50's Introduction to AI with Python",
+    "description": "Review notes for Harvard CS50 AI. Official lecture order: 0 Search, 1 Knowledge, 2 Uncertainty, 3 Optimization, 4 Learning, 5 Neural Networks, 6 Language. Each page ends with a quick self-check."
+  }
+}
