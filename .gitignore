@@ -5,6 +5,7 @@
 /build
 
 # Generated files
+.claude
 .docusaurus
 .cache-loader
 

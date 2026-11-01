@@ -6,6 +6,12 @@ import rehypeKatex from 'rehype-katex';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// Docusaurus's default "advanced" CSS minifier mangles Tailwind's cascade
+// layers: it hoists responsive (md:, lg:) rules out of @layer utilities, so the
+// layered !important base utilities always win, and it drops some utilities
+// (e.g. .absolute) entirely. The simple minifier keeps the layers intact.
+process.env.USE_SIMPLE_CSS_MINIFIER ??= 'true';
+
 const baseUrl = '/my-site/';
 
 const config: Config = {

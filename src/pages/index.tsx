@@ -71,8 +71,8 @@ export default function Home(): React.ReactNode {
         <main>
           {/* Hero Section */}
           <section className="snap-section min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden px-5 md:px-12 bg-[var(--color-hero-bg)]">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-              <div className="z-10 order-2 lg:order-1">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 lg:gap-12 items-center w-full">
+              <div className="z-10">
                 <h1 className="hero-fade hero-fade-1 text-4xl sm:text-5xl lg:text-6xl font-black text-[var(--color-hero-text)] mb-6 tracking-tight leading-tight">
                   Hi, I'm LEI Jing.
                 </h1>
@@ -104,7 +104,7 @@ export default function Home(): React.ReactNode {
               </div>
 
               {/* Hero Illustration */}
-              <div className="hero-fade hero-fade-5 order-1 lg:order-2 flex justify-center items-center">
+              <div className="hero-fade hero-fade-5 flex justify-center items-center">
                 <div className="w-full max-w-md lg:max-w-lg aspect-square rounded-3xl overflow-hidden flex items-center justify-center">
                   <img
                     src={useBaseUrl('/img/person.png')}
